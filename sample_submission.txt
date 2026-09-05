@@ -1,0 +1,11 @@
+Project title:
+RecoverAI — AI-Powered Revenue Recovery Decision Agent
+
+Objective:
+RecoverAI identifies failed payments and revenue at risk, analyzes the context behind each failure, recommends a bounded recovery intervention, requires human approval for simulated recovery actions, and measures the resulting recovery outcome. The prototype focuses on explainability, stopping rules, and an audit trail.
+
+Build challenges:
+The main challenge was designing an AI workflow that does not blindly act on payment data. We separated deterministic financial calculations from AI reasoning, constrained the allowed actions, added human approval for recovery actions, and recorded every decision in an audit trail. The prototype currently uses synthetic data and simulated recovery so no real money is moved.
+
+AI disclosure:
+The prototype includes an optional Gemini-powered decision layer. If no API key is configured, it falls back to an explainable deterministic decision engine so the demo remains reproducible.
