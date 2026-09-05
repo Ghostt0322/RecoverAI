@@ -75,6 +75,13 @@ def local_explanation(row):
 
 def ai_explanation(row):
     api_key = os.getenv("GEMINI_API_KEY")
+
+    if not api_key:
+        try:
+            api_key = st.secrets.get("GEMINI_API_KEY")
+        except Exception:
+            api_key = None
+
     if not api_key or genai is None:
         return local_explanation(row), False
     try:
@@ -146,7 +153,10 @@ st.caption("AI-powered revenue recovery decision agent — demo environment")
 with st.sidebar:
     st.header("Control Center")
     st.write("Demo data is synthetic. No real payments are executed.")
-    api_ready = bool(os.getenv("GEMINI_API_KEY")) and genai is not None
+    api_ready = bool(
+    os.getenv("GEMINI_API_KEY")
+    or st.secrets.get("GEMINI_API_KEY", "")
+) and genai is not None
     if api_ready:
         st.success("Gemini AI connected")
     else:
